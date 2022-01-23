@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('title')
-mi box
+Mi Tv
 @endsection
 @section('subtitle')
-semua product yang termasuk kedalam kategori mi box
+semua product yang termasuk kedalam kategori Mi Tv
 @endsection
 @section('button')
 <div class="button-tambah">
-    <a class="btn btn-dark" href="#">Add Product</a>
+    <a class="btn btn-dark" href="{{url('/my-product/mi-tv/add')}}">Add Product</a>
 </div>
 @endsection
 @section('content')

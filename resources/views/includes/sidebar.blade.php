@@ -24,9 +24,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('mibox')}}">
+                <a class="nav-link" href="{{route('miTv')}}">
                     <span data-feather="shopping-cart"></span>
-                    Mi Box
+                    Mi Tv
                 </a>
             </li>
             <li class="nav-item">

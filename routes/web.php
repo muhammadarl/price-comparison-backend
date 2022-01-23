@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\{loginController, registerController};
-use App\Http\Controllers\myproduct\{smartphoneController, miboxController, miPowerbankController, smartHomeController};
+use App\Http\Controllers\myproduct\{smartphoneController, MitvController, miPowerbankController, smartHomeController};
 use App\Http\Controllers\API\{SmartphoneController as smartphoneApi, ProductController, TestimoniController, PartnerController};
 use App\Http\Controllers\dashboardController;
 
@@ -30,7 +30,8 @@ Route::get('/my-product/smartphone', [smartphoneController::class,'index'])->nam
 Route::post('/my-product/smartphone/add', [smartphoneController::class,'store']);
 Route::put('/my-product/smartphone/edit/{id}', [smartphoneController::class,'update']);
 Route::delete('/my-product/smartphone/delete/{id}', [smartphoneController::class,'destroy']);
-Route::get('/my-product/mi-box', [miboxController::class,'index'])->name('mibox');
+Route::get('/my-product/mi-tv', [MitvController::class,'index'])->name('miTv');
+Route::get('/my-product/mi-tv/add', [MitvController::class,'create']);
 Route::get('/my-product/mi-powerbank', [miPowerbankController::class,'index'])->name('mipowerbank');
 Route::get('/my-product/smart-home', [smartHomeController::class,'index'])->name('smarthome');
 // add index
