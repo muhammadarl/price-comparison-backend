@@ -26,7 +26,8 @@ class ProductController extends Controller
         $price_from = $request->input('price_from');
         $price_to = $request->input('price_to');
 
-        $product = product::with(['smartphone']);
+        $product = product::with(['smartphone'])
+                    ->leftjoin('partner_profiles as pp', 'pp.seller_name', '=', 'products.seller_name');
         if($product_name){
             $product->where('product_name', 'like', '%'.$product_name.'%');
         }

@@ -14,10 +14,6 @@ class SmartphoneController extends Controller
         $storage = $request->input('storage');
         $limit = $request->input('limit',6);
 
-        if($id)
-        {
-           
-        }
         if($product_name)
         {
             $smartphone = smartphone::select('smartphones.id', 'smartphones.product_name', 'smartphones.storage', 'smartphones.screen_size', 'smartphones.screen_resolution',
