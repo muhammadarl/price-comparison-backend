@@ -13,8 +13,8 @@ class FuzzyLogicController extends Controller
         $datas = product::all();
         $collection = collect([]);
         foreach($datas as $data){
-            $label_fuzzy = $this->Fuzziffikasi($price = $data['harga_product'],$price_from = $price_from, $price_to = $price_to);
-            $collection->push(['product_name' => $data['product_name'], 'seller_name' => $data['seller_name'], 'harga_product' => $data['harga_product'], 'link_product' => $data['link_product'], 'product_cluster' => $label_fuzzy]);
+            $label_fuzzy = $this->Fuzziffikasi($price = $data['price'],$price_from = $price_from, $price_to = $price_to);
+            $collection->push(['product_name' => $data['product_name'], 'harga_product' => $data['price'], 'img_url' => $data['image_url'], 'product_cluster' => $label_fuzzy]);
         }
         return $collection;
     }

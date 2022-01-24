@@ -12,7 +12,7 @@ use DB;
 class product extends Model
 {
     use HasFactory;
-    protected $table = 'products';
+    protected $table = 'list_product';
     protected $guarded = ['id'];
     public function smartphone(){
         return $this->hasOne(smartphone::class, 'id', 'smartphone_id');
@@ -43,29 +43,4 @@ class product extends Model
             ->where('id',$id)
             ->delete();
     }
-   
-    public static function search($search=null, $price_from = null, $price_to = null, $limit) {
-        $columns = ["products.id", "products.product_name", "s1.product_name as smartphone_id", 's1.storage as storage',
-        "e1.name as ecommerce_id", "harga_product", 'link_product',  'products.seller_name', 'pp.rating', 'pp.daerah'];
-        $fuzzySearch = implode("%", str_split($search));
-        $fuzzySearch = "%$fuzzySearch%"; 
-        $data = static::with(['smartphone']);
-        $data->leftjoin('partner_profiles as pp', 'pp.seller_name','=','products.seller_name');
-        $data->where("pp.rating", ">=", 2.5);
-        if($search){
-            $data->where("products.product_name", "like", $fuzzySearch);
-        }
-        if($price_from){
-            $data->where("products.harga_product", ">=", $price_from);
-        }
-        
-        if($price_to){
-            $data->where("products.harga_product", "<=", $price_to);
-        }
-        $data->orderBy('products.harga_product');
-        return ResponseFormatter::success(
-            $data->paginate($limit), 
-            'Data produk berhasil ditemukan'
-        );
-    }    
 }
