@@ -19,41 +19,51 @@ class FuzzyLogicController extends Controller
         return $collection;
     }
     public function Fuzziffikasi($price,$price_from, $price_to){
-        $delta = $price_to - $price_from ;
-        if($price <= $price_from-$delta){
-            // $l_satu = 1;
-            // $l_dua = 0;
-            // $l_tiga = 0;
-            // $kumpulan_l = [$l_satu, $l_dua, $l_tiga];
-            return 'low-end';
+        $difference = $price_to - $price_from;
+        $l1 = $this->findl1($price, $price_from, $price_to, $difference);
+        $l2 = $this->findl2($price, $price_from, $price_to, $difference);
+        $l3 = $this->findl3($price, $price_from, $price_to, $difference);
+        $l = [$l1, $l2, $l3];
+        return $l;
+    }
+    private function findl1($price,$price_from, $price_to, $difference){
+        if($price <= $price_from - $difference){
+            return 1;
         }
-        if($price_from - $delta <= $price && $price <= $price_from){
-            // $l_satu = ($price_from - $price)/($price_from-$delta)-$price_from;
-            // $l_dua = ($price - ($price_from - $delta))/($price_from-$delta)-$price_from;
-            // $l_tiga = 0;
-            // $kumpulan_l = [$l_satu, $l_dua, $l_tiga];
-            return 'low-middle';
+        if($price_from - $difference <= $price && $price <= $price_from){
+            $calculation = (-($price/$difference)+($price_from/$difference));
+            return $calculation;
+        }
+        if($price > $price_from){
+            return 0;
+        }
+    }
+    private function findl2($price,$price_from, $price_to, $difference){
+        if($price_from - $difference <= $price && $price <= $price_from){
+            $calculation = (($price/$difference)-(($price_from/$difference))+1);
+            return $calculation;
         }
         if($price_from <= $price && $price <= $price_to){
-            // $l_satu = 0;
-            // $l_dua = 1;
-            // $l_tiga = 0;
-            // $kumpulan_l = [$l_satu, $l_dua, $l_tiga];
-            return 'middle';
+            return 1;
         }
-        if($price_to <= $price && $price <= $price_to+$delta){
-            // $l_satu = 0;
-            // $l_dua = $price_to - $price/($price_to+$delta)-$price_to;
-            // $l_tiga = $price - ($price_to + $delta)/($price_to+$delta)-$price_to;
-            // $kumpulan_l = [$l_satu, $l_dua, $l_tiga];
-            return 'middle-high';
+        if($price_to < $price && $price <= $price_to + $difference){
+            $calculation = (-($price/$difference)+($price_to/$difference)+1);
+            return $calculation;
         }
-        if( $price_to + $delta <= $price){
-            // $l_satu = 0;
-            // $l_dua = 0;
-            // $l_tiga = 1;
-            // $kumpulan_l = [$l_satu, $l_dua, $l_tiga];
-            return 'high-end';
-        }  
+        if($price > $price_to + $difference){
+            return 0;
+        }
+    }
+    private function findl3($price,$price_from, $price_to, $difference){
+        if($price < $price_to){
+            return 0;
+        }
+        if($price_to <= $price && $price <= $price_to+$difference){
+            $calculation = (($price/$difference)-($price_to/$difference));
+            return $calculation;
+        }
+        if($price >= $price_to + $difference){
+            return 1;
+        }
     }
 }
