@@ -8,10 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class developer extends Model
 {
     use HasFactory;
-    protected $table = 'developer_profile';
     protected $fillable = [
         'username',
         'token',
     ];
-
 }

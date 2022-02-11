@@ -15,7 +15,7 @@ class CreateRatingPartnersTable extends Migration
     {
         Schema::create('rating_partners', function (Blueprint $table) {
             $table->id();
-            $table->string('seller_name',30);
+            $table->string('username',30);
             $table->double('rating');
         });
     }

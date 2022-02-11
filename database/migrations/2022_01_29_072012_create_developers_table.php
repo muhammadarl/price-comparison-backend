@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateShopProfileTable extends Migration
+class CreateDevelopersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateShopProfileTable extends Migration
      */
     public function up()
     {
-        Schema::create('shop_profile', function (Blueprint $table) {
-            $table->string('username',25);
-            $table->string('nama_toko',50);
+        Schema::create('developers', function (Blueprint $table) {
+            $table->id();
+            $table->string('username',25)->unique();
+            $table->string('token')->unique();
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateShopProfileTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shop_profile');
+        Schema::dropIfExists('developers');
     }
 }

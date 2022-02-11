@@ -12,17 +12,23 @@ Edit data product di kategori smartphone
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
-<form action="/my-product/smartphone/edit/{{$products->id_product}}" method="post">
+<form action="/my-product/smartphone/edit/{{$products->id}}" method="post">
     @method('put')
     @csrf
+    <div class="input-product-name mb-4">
+        <label for="product_name">Nama Produk</label>
+        <input type="text" class="form-control  @error('seller_name') is-invalid @enderror" name="product_name" id="product_name" value="{{$products->product_name}}" required>
+        <div id="smartphone-product-help" class="form-text">masukan nama product("contoh, Xiaomi Mi POCO M3 Pro 5G 4/64GB NFC Triple Kamera Layar Smartphone hp")
+        </div>
+    </div>
     <div class="input-smartphone-product mb-4">
         <label for="">Smartphone Product</label>
-        <select class="form-select @error('product_name') is-invalid @enderror" name="product_name"
-            aria-label="Select Smartphone Product" required>
-            <option value="{{$products->id_smartphone}}">{{$products->product_name." ".$products->storage}}</option>
+        <select class="form-select @error('id_smartphone') is-invalid @enderror" name="id_smartphone"
+            aria-label="Select Smartphone Product">
+            <option value="{{$products->id_smartphone}}">{{$products->smartphone_name}}</option>
             @foreach($smartphones as $smartphone)
             @continue($smartphone['id'] == $products->id_smartphone)
-            <option value="{{$smartphone['id']}}">{{$smartphone['product_name']." ".$smartphone['storage']}}</option>
+            <option value="{{$smartphone['id']}}">{{$smartphone['product_name']}}</option>
             @endforeach
         </select>
         <div id="smartphone-product-help" class="form-text">Pilih smartphone product yang tersedia pada pilihan diatas
@@ -30,11 +36,11 @@ Edit data product di kategori smartphone
     </div>
     <div class="input-seller-shop mb-4">
         <label for="">E-Commerce</label>
-        <select class="form-select @error('ecommerce_name') is-invalid @enderror" name="ecommerce_name"
+        <select class="form-select @error('ecommerce_name') is-invalid @enderror" name="ecommerce_id"
             aria-label="Select E-commerce" required>
-            <option value="{{$products->id_ecommerce}}">{{$products->name}}</option>
+            <option value="{{$products->ecommerce_id}}">{{$products->ecommerce_name}}</option>
             @foreach($ecommerces as $ecommerce)
-            @continue($ecommerce['id'] == $products->id_ecommerce)
+            @continue($ecommerce['id'] == $products->ecommerce_id)
             <option value="{{$ecommerce['id']}}">{{$ecommerce['name']}}</option>
             @endforeach
         </select>
@@ -67,9 +73,9 @@ Edit data product di kategori smartphone
     <div class="row g-2">
         <div class="col-md-12">
             <div class="form-floating">
-                <input type="hidden" class="form-control  @error('seller_name') is-invalid @enderror"
+                <input type="hidden" class="form-control  @error('username') is-invalid @enderror"
                     placeholder="seller name" id="floating-harga-product" aria-label="seller name"
-                    name="seller_name" value="{{auth()->user()->seller_name}}">
+                    name="username" value="{{auth()->user()->username}}">
             </div>
         </div>
     </div>

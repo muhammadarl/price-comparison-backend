@@ -22,7 +22,7 @@ menambahkan product di kategori smartphone
     </div>
     <div class="input-smartphone-product mb-4">
         <label for="">Smartphone Product</label>
-        <select class="form-select @error('smartphone_id') is-invalid @enderror" name="smartphone_id"
+        <select class="form-select @error('id_smartphone') is-invalid @enderror" name="id_smartphone"
             aria-label="Select Smartphone Product" required>
             @foreach($smartphones as $smartphone)
             <option value="{{$smartphone['id']}}">{{$smartphone['product_name']." ".$smartphone['storage']}}</option>
@@ -68,9 +68,9 @@ menambahkan product di kategori smartphone
     <div class="row g-2 mb-4">
         <div class="col-md-12">
             <div class="form-floating">
-                <input type="hidden" class="form-control  @error('seller_name') is-invalid @enderror"
-                    placeholder="seller name" id="floating-harga-product" aria-label="seller name"
-                    name="seller_name" value="{{auth()->user()->seller_name}}">
+                <input type="hidden" class="form-control  @error('username') is-invalid @enderror"
+                    placeholder="username" id="floating-harga-product" aria-label="username"
+                    name="username" value="{{auth()->user()->username}}">
             </div>
         </div>
     </div>

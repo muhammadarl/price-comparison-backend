@@ -10,7 +10,7 @@ use App\Http\Controllers\API\{ResponseFormatter, FuzzyLogicController};
 class SearchController extends Controller
 {
     public function search(Request $request){
-        $search = $request->input('search', null,);
+        $search = $request->input('search', null);
         $price_from = $request->input('price_from');
         $price_to = $request->input('price_to');
         $cluster = $request->input('kategori', null);

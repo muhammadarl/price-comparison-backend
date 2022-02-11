@@ -5,16 +5,16 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\ResponseFormatter;
-use App\Models\product;
+use App\Models\smartphone;
 
 class FuzzyLogicController extends Controller
 {
     public function FuzzySemanticExtraction($price_from, $price_to, $search = null){
-        $datas = product::all();
+        $datas = smartphone::all();
         $collection = collect([]);
         foreach($datas as $data){
             $label_fuzzy = $this->Fuzziffikasi($price = $data['price'],$price_from = $price_from, $price_to = $price_to);
-            $collection->push(['product_name' => $data['product_name'], 'harga_product' => $data['price'], 'img_url' => $data['image_url'], 'product_cluster' => $label_fuzzy]);
+            $collection->push(['id' => $data['id'],'product_name' => $data['product_name'], 'harga_product' => $data['price'], 'img_url' => $data['image_url'], 'product_cluster' => $label_fuzzy]);
         }
         return $collection;
     }

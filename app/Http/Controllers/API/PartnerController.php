@@ -13,15 +13,15 @@ class PartnerController extends Controller
     public function add_rating(Request $request,$partner_name){
         $rating = $request->input('rating');
         $data = [
-            'seller_name'=>$partner_name,
+            'username'=>$partner_name,
             'rating'=>$rating
         ];
         $rating = rating_partner::create($data);
-        $average_rating = rating_partner::where('seller_name', $partner_name)->avg('rating');
+        $average_rating = rating_partner::where('username', $partner_name)->avg('rating');
         $data_average = [
             'rating'=>$average_rating,
         ];
-        $partner = partner_profile::where('seller_name', $partner_name)->update($data_average);
+        $partner = partner_profile::where('username', $partner_name)->update($data_average);
         
         if($rating == true && $partner == true)
         {
