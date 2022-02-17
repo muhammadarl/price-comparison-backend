@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\{SmartphoneController, PartnerController, SearchController, productController, TestimoniController};
+use App\Http\Controllers\API\{SmartphoneController, PartnerController, SearchController, productController, TestimoniController, FuzzyLogicController};
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +16,14 @@ use App\Http\Controllers\API\{SmartphoneController, PartnerController, SearchCon
 */
 
 Route::group(['middleware' => ['auth:sanctum']], function() {
-    Route::get('search',[SearchController::class, 'search']);
     Route::get('testimoni',[TestimoniController::class, 'all']);
     Route::post('testimoni',[TestimoniController::class, 'add_testimoni']);
 
 });
+Route::get('search',[SearchController::class, 'search']);
 Route::get('products',[ProductController::class, 'all']);
 Route::get('products/{id}',[ProductController::class, 'ById']);
 Route::get('smartphones',[SmartphoneController::class, 'all']);
 Route::get('smartphones/{id}',[SmartphoneController::class, 'byid']);
+Route::get('test',[FuzzyLogicController::class, 'inferensi']);
 Route::post('rating/{partner_name}',[PartnerController::class, 'add_rating']);
