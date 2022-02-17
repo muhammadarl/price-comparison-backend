@@ -20,19 +20,16 @@ class FuzzyLogicController extends Controller
             // $fuzzy_set = $this->Fuzziffikasi($data['memory'], $data['storage']);
             $fuzzy_set = $this->Fuzziffikasi($data['memory'], $data['storage']);
             $inferensi_value = $this->inferensi($fuzzy_set);
-            $defuzzifikasi = $this->defuzzifikasi($inferensi_value);
-            // $collection->push(['id' => $data['id'],'brand' => $data['brand'], 
-            // 'model' => $data['model'], 'color' => $data['color'], 'memory' => $data['memory'], 'storage' =>$data['storage'], 
-            // 'rating' =>$data['rating'], 'rating' =>$data['rating'], 'selling_price' => $data['selling_price'], 'original_price' => $data['original_price'], 
-            // 'defuzzifikasi' => $defuzzifikasi,]);
+            $defuzzifikasi = round($this->defuzzifikasi($inferensi_value));
             $collection->push(['id' => $data['id'],'brand' => $data['brand'], 
             'model' => $data['model'], 'color' => $data['color'], 'memory' => $data['memory'], 'storage' =>$data['storage'], 
-            'rating' =>$data['rating'], 'rating' =>$data['rating'], 
-            'defuzzifikasi' => $defuzzifikasi]);
+            'rating' =>$data['rating'], 'rating' =>$data['rating'], 'selling_price' => $data['selling_price'], 'original_price' => $data['original_price'],
+            'score' => $defuzzifikasi]);
+            // $collection->push(['id' => $data['id'],'brand' => $data['brand'], 
+            // 'model' => $data['model'], 'color' => $data['color'], 'memory' => $data['memory'], 'storage' =>$data['storage'], 
+            // 'rating' =>$data['rating'], 'rating' =>$data['rating'],
+            // 'defuzzifikasi' => $defuzzifikasi]);
         }
-        // $collection->push(['id' => $data['id'],'brand' => $data['brand'], 'model' => $data['model'], 'color' => $data['color'], 'memory' => $data['memory'], 'storage' =>$data['storage'], 'rating' =>$data['rating'], 'rating' =>$data['rating'], 'selling_price' => $data['selling_price'], 'original_price' => $data['original_price'], 'fuzzy_set_ram' => $fuzzy_set[0], 'fuzzy_set_storage' => $fuzzy_set[1]]);
-        // return $fuzzy_set;
-        // dd($datas);
         return $collection;
     }
     private function Fuzziffikasi($data, $data_dua){
@@ -150,31 +147,31 @@ class FuzzyLogicController extends Controller
         return $hasil;
     }
     private function rule2($data){
-        $predikat = min([$data[0][0], $data[1][0]]);
+        $predikat = min([$data[0][0], $data[1][1]]);
         $z = $this->miu_z_rendah($predikat);
         $hasil =array($predikat, $z);
         return $hasil;
     }
     private function rule3($data){
-        $predikat = min([$data[0][0], $data[1][0]]);
+        $predikat = min([$data[0][0], $data[1][2]]);
         $z = $this->miu_z_tinggi($predikat);
         $hasil =array($predikat, $z);
         return $hasil;
     }
     private function rule4($data){
-        $predikat = min([$data[0][0], $data[1][0]]);
+        $predikat = min([$data[0][1], $data[1][0]]);
         $z = $this->miu_z_rendah($predikat);
         $hasil =array($predikat, $z);
         return $hasil;
     }
     private function rule5($data){
-        $predikat = min([$data[0][0], $data[1][0]]);
+        $predikat = min([$data[0][1], $data[1][1]]);
         $z = $this->miu_z_tinggi($predikat);
         $hasil =array($predikat, $z);
         return $hasil;
     }
     private function rule6($data){
-        $predikat = min([$data[0][0], $data[1][0]]);
+        $predikat = min([$data[0][1], $data[1][2]]);
         $z = $this->miu_z_tinggi($predikat);
         $hasil =array($predikat, $z);
         return $hasil;
@@ -182,25 +179,25 @@ class FuzzyLogicController extends Controller
 
     private function miu_z_rendah($predikat){
         if($predikat == 0){
-            return 80;
+            return 60;
         }
         if($predikat == 1){
-            return 30;
+            return 40;
         }
         if($predikat != 1 && $predikat != 0 ){
-            $callculate = 80-((80-30)*$predikat);
+            $callculate = 60-((60-40)*$predikat);
             return $callculate;
         }
     }
     private function miu_z_tinggi($predikat){
         if($predikat == 0){
-            return 30;
+            return 40;
         }
         if($predikat == 1){
-            return 80;
+            return 60;
         }
         if($predikat != 1 && $predikat != 0 ){
-            $callculate = ((80-30)*$predikat)+30;
+            $callculate = ((60-40)*$predikat)+40;
             return $callculate;
         }
     }
@@ -213,126 +210,5 @@ class FuzzyLogicController extends Controller
             $calculate = ($perhitungan_atas) / ($perhitungan_bawah);
             return $calculate;
         }
-    }
-   
-    // private function findl2($price,$price_from, $price_to, $difference){
-    //     if($price_from - $difference <= $price && $price <= $price_from){
-    //         $calculation = (($price/$difference)-(($price_from/$difference))+1);
-    //         return $calculation;
-    //     }
-    //     if($price_from <= $price && $price <= $price_to){
-    //         return 1;
-    //     }
-    //     if($price_to < $price && $price <= $price_to + $difference){
-    //         $calculation = (-($price/$difference)+($price_to/$difference)+1);
-    //         return $calculation;
-    //     }
-    //     if($price > $price_to + $difference){
-    //         return 0;
-    //     }
-    // }
-    // private function findl3($price,$price_from, $price_to, $difference){
-    //     if($price < $price_to){
-    //         return 0;
-    //     }
-    //     if($price_to <= $price && $price <= $price_to+$difference){
-    //         $calculation = (($price/$difference)-($price_to/$difference));
-    //         return $calculation;
-    //     }
-    //     if($price >= $price_to + $difference){
-    //         return 1;
-    //     }
-    // }
-    private function klasifikasiClustering($centroid, $price){
-        $centroid_1 = $centroid[0];
-        $centroid_2 = $centroid[1];
-        $centroid_3 = $centroid[2];
-        $centroid_4 = $centroid[3];
-        $hasilcentroid1 = abs($price-$centroid_1);
-        $hasilcentroid2 = abs($price-$centroid_2);
-        $hasilcentroid3 = abs($price-$centroid_3);
-        $hasilcentroid4 = abs($price-$centroid_4);
-        if(($hasilcentroid1<$hasilcentroid2)){
-            return 'low end';
-        }
-        if(($hasilcentroid1>$hasilcentroid2&&$hasilcentroid2<$hasilcentroid3)){
-            return 'low middle';
-        }
-        if(($hasilcentroid2>$hasilcentroid3&&$hasilcentroid3<$hasilcentroid4)){
-            return 'middle high';
-        }
-        if(($hasilcentroid4<$hasilcentroid3)){
-            return 'high end';
-        }
-    }
-    public function kmeans_test($price_from = 1000000, $price_to = 2000000){
-        $difference = $price_to - $price_from;
-        $datas = smartphone::all();
-        // $harga_product = $datas['price'];
-        $price_array = [];
-        foreach($datas as $data){
-            array_push($price_array, $data['price']);
-        }
-        $centroid1_set = $price_from - $difference;
-        $centroid2_set = $price_from;
-        $centroid3_set = $price_to;
-        $centroid4_set = $price_to+$difference;
-        for($i=1;$i<=20;$i++){
-            $findcentroid1 = [];
-            $findcentroid2 = [];
-            $findcentroid3 = [];
-            $findcentroid4 = [];
-            if($i<2){
-                foreach($price_array as $price){
-                    $hasilcentroid1 = abs($price-$centroid1_set);
-                    $hasilcentroid2 = abs($price-$centroid2_set);
-                    $hasilcentroid3 = abs($price-$centroid3_set);
-                    $hasilcentroid4 = abs($price-$centroid4_set);
-                    if(($hasilcentroid1<$hasilcentroid2)){
-                        array_push($findcentroid1, $price);
-                    }
-                    if(($hasilcentroid1>$hasilcentroid2&&$hasilcentroid2<$hasilcentroid3)){
-                        array_push($findcentroid2, $price);
-                    }
-                    if(($hasilcentroid2>$hasilcentroid3&&$hasilcentroid3<$hasilcentroid4)){
-                        array_push($findcentroid3, $price);
-                    }
-                    if(($hasilcentroid4<$hasilcentroid3)){
-                        array_push($findcentroid4, $price);
-                    }
-                   
-                }
-                $centroid_1 = array_sum($findcentroid1)/count($findcentroid1);
-                $centroid_2 = array_sum($findcentroid2)/count($findcentroid2);
-                $centroid_3 = array_sum($findcentroid3)/count($findcentroid3);
-                $centroid_4 = array_sum($findcentroid4)/count($findcentroid4);
-            }
-            if($i>=2){
-                foreach($price_array as $price){
-                    $hasilcentroid1 = abs($price-$centroid_1);
-                    $hasilcentroid2 = abs($price-$centroid_2);
-                    $hasilcentroid3 = abs($price-$centroid_3);
-                    $hasilcentroid4 = abs($price-$centroid_4);
-                    if(($hasilcentroid1<$hasilcentroid2)){
-                        array_push($findcentroid1, $price);
-                    }
-                    if(($hasilcentroid1>$hasilcentroid2&&$hasilcentroid2<$hasilcentroid3)){
-                        array_push($findcentroid2, $price);
-                    }
-                    if(($hasilcentroid2>$hasilcentroid3&&$hasilcentroid3<$hasilcentroid4)){
-                        array_push($findcentroid3, $price);
-                    }
-                    if(($hasilcentroid4<$hasilcentroid3)){
-                        array_push($findcentroid4, $price);
-                    }
-                   
-                }
-                $centroid_1 = array_sum($findcentroid1)/count($findcentroid1);
-                $centroid_2 = array_sum($findcentroid2)/count($findcentroid2);
-                $centroid_3 = array_sum($findcentroid3)/count($findcentroid3);
-                $centroid_4 = array_sum($findcentroid4)/count($findcentroid4);
-            }
-        }
-        return [$centroid_1, $centroid_2, $centroid_3, $centroid_4];
     }
 }
