@@ -13,8 +13,8 @@ class dashboardController extends Controller
     public function index(){
         $data = [
             'token_api'=> developer::where('username', Auth::user()->username)->first(),
-            'partner_profile'=> partner_profile::where('seller_name', Auth::user()->seller_name)->first(),
-            'jumlah_product' => product::where('seller_name', Auth::user()->seller_name)->count(),
+            'partner_profile'=> partner_profile::where('username', Auth::user()->username)->first(),
+            'jumlah_product' => product::where('username', Auth::user()->username)->count(),
         ];
         // dd($data);
         return view('pages.dashboard', $data);

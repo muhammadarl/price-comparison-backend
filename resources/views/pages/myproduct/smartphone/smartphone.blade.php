@@ -24,6 +24,7 @@ semua product yang termasuk kedalam kategori smartphone
                 <th scope="col">No</th>
                 <th scope="col">Product Name</th>
                 <th scope="col">Smartphone</th>
+                <th scope="col">Storage</th>
                 <th scope="col">E-Commerce Name</th>
                 <th scope="col">Link Product</th>
                 <th scope="col">Harga Product</th>
@@ -38,10 +39,11 @@ semua product yang termasuk kedalam kategori smartphone
             <tr>
                 <td>{{$i++}}</td>
                 <td>{{$product->product_name}}</td>
-                <td>{{$product->smartphone_id}}</td>
-                <td>{{$product->ecommerce_id}}</td>
+                <td>{{$product->smartphone_name}}</td>
+                <td>{{$product->storage}}</td>
+                <td>{{$product->ecommerce_name}}</td>
                 <td>{{$product->link_product}}</td>
-                <td>{{$product->harga_product}}</td>
+                <td>Rp.{{$product->harga_product}}</td>
                 <td class="text-center d-flex justify-content-center">
                     <a href="/my-product/smartphone/edit/{{$product->id}}" class="me-2 btn btn-warning"><i class="bi bi-pencil"></i></a>
                     <form action="/my-product/smartphone/delete/{{$product->id}}" method="post">

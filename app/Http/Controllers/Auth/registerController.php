@@ -22,14 +22,13 @@ class registerController extends Controller
     public function store(Request $request){
         $validate = $request->validate([
             'username' => ['required', 'unique:users', 'min:6', 'max:25'],
-            'seller_name' => 'required|unique:users|min:6|max:30',
             'email' => 'required|email:dns|unique:users|min:6|max:30',
             'password' => 'required|min:6|max:16',
             'roles' => 'required',
             'daerah' => 'required'
         ]);
         $partner_profile = [
-            'seller_name' => $validate['seller_name'],
+            'username' => $validate['username'],
             'daerah' => $validate['daerah'],
         ];
         $validate['password'] = Hash::make($validate['password']);

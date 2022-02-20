@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     
     public function ById($id){
-        $product = product::with(['smartphone'])->find($id);
+        $product = product::find($id)->leftjoin('partner_profiles as pp', 'pp.username', '=', 'products.username')->get();
         if($product){
             return ResponseFormatter::success($product, 'Data produk berhasil diambil');
         }else{
@@ -19,22 +19,22 @@ class ProductController extends Controller
     }
     
     public function all(Request $request){
-        $id_smartphone = $request->input('id_smartphone');
         $limit = $request->input('limit', 6);
+        $id_smartphone = $request->input('id_smartphone');
         $product_name = $request->input('product_name');
-        $partner_name = $request->input('partner_name');
         $price_from = $request->input('price_from');
         $price_to = $request->input('price_to');
 
-        $product = product::with(['smartphone']);
+        $product = product::select('*');
+        if($id_smartphone){
+            $product->where('id_smartphone', $id_smartphone);
+            return ResponseFormatter::success(
+                $product->paginate($limit),
+                'Data list produk berhasil diambil'
+            );
+        }
         if($product_name){
             $product->where('product_name', 'like', '%'.$product_name.'%');
-        }
-        if($partner_name){
-            $product->where('seller_name', 'like', '%'.$partner_name.'%');
-        }
-        if($id_smartphone){
-            $product->where('smartphone_id', $id_smartphone);
         }
         if($price_from){
             $product->where('harga_product', '>=',$price_from);
@@ -46,7 +46,6 @@ class ProductController extends Controller
             $product->paginate($limit),
             'Data list produk berhasil diambil'
         );
-
     }
     public function index(){
         return view('pages.dokumentasi.product');

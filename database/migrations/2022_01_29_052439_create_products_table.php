@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOperatingSystemTable extends Migration
+class CreateProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class CreateOperatingSystemTable extends Migration
      */
     public function up()
     {
-        Schema::create('operating_system', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name',20)->unique();
+            $table->integer('id_smartphone');
+            $table->String('product_name',100);
+            $table->bigInteger('ecommerce_id');
+            $table->integer('harga_product');
+            $table->String('link_product');
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ class CreateOperatingSystemTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('operating_system');
+        Schema::dropIfExists('products');
     }
 }

@@ -1,10 +1,9 @@
 @extends('layouts.app')
 @if(auth()->user()->roles == 'developer')
 @section('title')
-Price Comparison API
+SYNC CLUSTERING
 @endsection
 @section('subtitle')
-Web service Price Comparison, menampung data spesifikasi smartphone dan penawaran dari partner yang telah terdaftar.
 @endsection
 @else
 @section('title')
@@ -21,6 +20,7 @@ memantau apa yang terjadi
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
+@if(auth()->user()->roles == 'partner')
 <div class="d-flex justify-content-center">
     <div class="card border-secondary ms-3 mb-3" style="width: 18rem;">
         <div class="card-body">
@@ -37,6 +37,7 @@ memantau apa yang terjadi
         </div>
     </div>
 </div>
+@endif
 @if(auth()->user()->roles == 'developer')
 <div class="card">
     <div class="card-body text-center shadow">

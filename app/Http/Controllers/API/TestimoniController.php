@@ -19,7 +19,7 @@ class TestimoniController extends Controller
         return ResponseFormatter::success($testimoni);
     }
     public function all(Request $request){
-        $limit = $request->input('limit',3);
+        $limit = $request->input('limit',10);
         $testimoni = testimoni::paginate($limit);
         if($testimoni)
         {

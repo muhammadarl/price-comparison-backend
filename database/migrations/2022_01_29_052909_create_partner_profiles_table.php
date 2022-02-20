@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChargingTable extends Migration
+class CreatePartnerProfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateChargingTable extends Migration
      */
     public function up()
     {
-        Schema::create('charging', function (Blueprint $table) {
+        Schema::create('partner_profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('name',20)->unique();
+            $table->integer('user_id');
+            $table->string('daerah',50);
+            $table->double('rating');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateChargingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('charging');
+        Schema::dropIfExists('partner_profiles');
     }
 }

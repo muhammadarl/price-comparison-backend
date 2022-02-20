@@ -49,14 +49,6 @@
                 <label for="floatingInput">Username</label>
             </div>
             <div class="form-floating mb-2">
-                <input type="text" class="form-control @error('seller_name') is-invalid @enderror" id="floatingInput"
-                    name="seller_name" placeholder="Nama Seller" required value="{{old('seller_name')}}">
-                @error('seller_name')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-                <label for="floatingInput">Nama Partner</label>
-            </div>
-            <div class="form-floating mb-2">
                 <input type="email" class="form-control @error('email') is-invalid @enderror" id="floatingInput"
                     name="email" placeholder="name@example.com" required value="{{old('email')}}">
                 @error('email')

@@ -3,7 +3,7 @@
         <ul class="nav flex-column">
             <li class="nav-item">
                 <p class="nav-link text-muted">
-                    Welcome Back, {{auth()->user()->seller_name}}
+                    Welcome Back, {{auth()->user()->username}}
                 </p>
                 <a class="nav-link active" aria-current="page" href="{{route('dashboard')}}">
                     <span data-feather="home"></span>
@@ -24,9 +24,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('mibox')}}">
+                <a class="nav-link" href="{{route('miTv')}}">
                     <span data-feather="shopping-cart"></span>
-                    Mi Box
+                    Mi Tv
                 </a>
             </li>
             <li class="nav-item">
