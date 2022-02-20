@@ -6,18 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\ResponseFormatter;
 use App\Models\smartphone;
-use Phpml\Classification\KNearestNeighbors;
-use Phpml\Clustering\KMeans;
 use Illuminate\Support\Arr;
 
 class FuzzyLogicController extends Controller
 {
-    public function FuzzySemanticExtraction(){
-        $datas = smartphone::all();
+    public function FuzzySemanticExtraction($datas){
         $collection = collect([]);
-        $array = [];
         foreach($datas as $data){
-            // $fuzzy_set = $this->Fuzziffikasi($data['memory'], $data['storage']);
             $fuzzy_set = $this->Fuzziffikasi($data['memory'], $data['storage']);
             $inferensi_value = $this->inferensi($fuzzy_set);
             $defuzzifikasi = round($this->defuzzifikasi($inferensi_value));
@@ -25,11 +20,18 @@ class FuzzyLogicController extends Controller
             'model' => $data['model'], 'color' => $data['color'], 'memory' => $data['memory'], 'storage' =>$data['storage'], 
             'rating' =>$data['rating'], 'rating' =>$data['rating'], 'selling_price' => $data['selling_price'], 'original_price' => $data['original_price'],
             'score' => $defuzzifikasi]);
-            // $collection->push(['id' => $data['id'],'brand' => $data['brand'], 
-            // 'model' => $data['model'], 'color' => $data['color'], 'memory' => $data['memory'], 'storage' =>$data['storage'], 
-            // 'rating' =>$data['rating'], 'rating' =>$data['rating'],
-            // 'defuzzifikasi' => $defuzzifikasi]);
         }
+        return $collection;
+    }
+    public function FuzzyforId($datas){
+        $collection = collect([]);
+        $fuzzy_set = $this->Fuzziffikasi($datas['memory'], $datas['storage']);
+        $inferensi_value = $this->inferensi($fuzzy_set);
+        $defuzzifikasi = round($this->defuzzifikasi($inferensi_value));
+        $collection->push(['id' => $datas['id'],'brand' => $datas['brand'], 
+        'model' => $datas['model'], 'color' => $datas['color'], 'memory' => $datas['memory'], 'storage' =>$datas['storage'], 
+        'rating' =>$datas['rating'], 'rating' =>$datas['rating'], 'selling_price' => $datas['selling_price'], 'original_price' => $datas['original_price'],
+        'score' => $defuzzifikasi]);
         return $collection;
     }
     private function Fuzziffikasi($data, $data_dua){
@@ -179,25 +181,25 @@ class FuzzyLogicController extends Controller
 
     private function miu_z_rendah($predikat){
         if($predikat == 0){
-            return 60;
+            return 100;
         }
         if($predikat == 1){
-            return 40;
+            return 60;
         }
         if($predikat != 1 && $predikat != 0 ){
-            $callculate = 60-((60-40)*$predikat);
+            $callculate = 100-((100-60)*$predikat);
             return $callculate;
         }
     }
     private function miu_z_tinggi($predikat){
         if($predikat == 0){
-            return 40;
-        }
-        if($predikat == 1){
             return 60;
         }
+        if($predikat == 1){
+            return 100;
+        }
         if($predikat != 1 && $predikat != 0 ){
-            $callculate = ((60-40)*$predikat)+40;
+            $callculate = ((100-60)*$predikat)+60;
             return $callculate;
         }
     }

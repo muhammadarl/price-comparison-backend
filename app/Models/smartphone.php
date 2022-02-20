@@ -10,7 +10,4 @@ class smartphone extends Model
 {
     use HasFactory;
     protected $table ='smartphones';
-    public function all_data(){
-        DB::table('smartphones')->select('*')->get();
-    }
 }
