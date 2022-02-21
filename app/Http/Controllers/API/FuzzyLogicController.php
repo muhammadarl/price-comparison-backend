@@ -16,9 +16,22 @@ class FuzzyLogicController extends Controller
             $fuzzy_set = $this->Fuzziffikasi($data['memory'], $data['storage']);
             $inferensi_value = $this->inferensi($fuzzy_set);
             $defuzzifikasi = round($this->defuzzifikasi($inferensi_value));
-            $collection->push(['id' => $data['id'],'brand' => $data['brand'], 
+            $collection->push(['id' => $data['id'],'image_url' => $data['image_url'],'brand' => $data['brand'], 
             'model' => $data['model'], 'color' => $data['color'], 'memory' => $data['memory'], 'storage' =>$data['storage'], 
             'rating' =>$data['rating'], 'rating' =>$data['rating'], 'selling_price' => $data['selling_price'], 'original_price' => $data['original_price'],
+            'score' => $defuzzifikasi]);
+        }
+        return $collection;
+    }
+    public function FuzzyforTrending($datas){
+        $collection = collect([]);
+        foreach($datas as $data){
+            $fuzzy_set = $this->Fuzziffikasi($data->memory, $data->storage);
+            $inferensi_value = $this->inferensi($fuzzy_set);
+            $defuzzifikasi = round($this->defuzzifikasi($inferensi_value));
+            $collection->push(['id' => $data->id,'image_url' => $data->image_url,'brand' => $data->brand, 
+            'model' => $data->model, 'color' => $data->color, 'memory' => $data->memory, 'storage' =>$data->storage, 
+            'rating' =>$data->rating, 'selling_price' => $data->selling_price, 'original_price' => $data->original_price,
             'score' => $defuzzifikasi]);
         }
         return $collection;
@@ -28,7 +41,7 @@ class FuzzyLogicController extends Controller
         $fuzzy_set = $this->Fuzziffikasi($datas['memory'], $datas['storage']);
         $inferensi_value = $this->inferensi($fuzzy_set);
         $defuzzifikasi = round($this->defuzzifikasi($inferensi_value));
-        $collection->push(['id' => $datas['id'],'brand' => $datas['brand'], 
+        $collection->push(['id' => $datas['id'],'image_url' => $datas['image_url'],'brand' => $datas['brand'], 
         'model' => $datas['model'], 'color' => $datas['color'], 'memory' => $datas['memory'], 'storage' =>$datas['storage'], 
         'rating' =>$datas['rating'], 'rating' =>$datas['rating'], 'selling_price' => $datas['selling_price'], 'original_price' => $datas['original_price'],
         'score' => $defuzzifikasi]);

@@ -23,4 +23,6 @@ Route::get('products',[ProductController::class, 'all']);
 Route::get('products/{id}',[ProductController::class, 'ById']);
 Route::get('smartphones',[SmartphoneController::class, 'all']);
 Route::get('smartphones/{id}',[SmartphoneController::class, 'byid']);
+Route::get('trending',[SmartphoneController::class, 'trending']);
+Route::get('recommendation',[SmartphoneController::class, 'recommendation']);
 Route::post('rating/{partner_name}',[PartnerController::class, 'add_rating']);
