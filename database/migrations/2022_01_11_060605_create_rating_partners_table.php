@@ -17,6 +17,7 @@ class CreateRatingPartnersTable extends Migration
             $table->id();
             $table->string('username',30);
             $table->double('rating');
+            $table->timestamps();
         });
     }
 

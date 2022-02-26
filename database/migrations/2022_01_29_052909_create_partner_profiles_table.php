@@ -15,7 +15,7 @@ class CreatePartnerProfilesTable extends Migration
     {
         Schema::create('partner_profiles', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->string('username', 25);
             $table->string('daerah',50);
             $table->double('rating');
             $table->timestamps();

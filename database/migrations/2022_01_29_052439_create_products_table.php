@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->integer('id_smartphone');
             $table->String('product_name',100);
+            $table->String('username',25);
             $table->bigInteger('ecommerce_id');
             $table->integer('harga_product');
             $table->String('link_product');

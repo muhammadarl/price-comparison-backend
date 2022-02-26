@@ -15,6 +15,8 @@ class CreateClickviewsTable extends Migration
     {
         Schema::create('clickviews', function (Blueprint $table) {
             $table->id();
+            $table->integer('smartphone_id');
+            $table->integer('click');
             $table->timestamps();
         });
     }
