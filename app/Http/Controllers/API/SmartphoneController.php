@@ -11,6 +11,7 @@ class SmartphoneController extends Controller
 {
     public function all(Request $request){
         $id = $request->input('id');
+        $limit = $request->input('limit');
         if($id){
             $smartphone = smartphone::find($id);
             $fuzzyController = new FuzzyLogicController;
@@ -35,6 +36,9 @@ class SmartphoneController extends Controller
         $datas = smartphone::all();
         $fuzzyController = new FuzzyLogicController;
         $data = $fuzzyController->FuzzySemanticExtraction($datas);
+        if($limit){
+            return ResponseFormatter::success($this->paginateCollection($data, $perPage = $limit), 'Data Product Berhasil Diambil');
+        }
         return ResponseFormatter::success($data, 'Data Product Berhasil Diambil');
     }
     public function trending(){
@@ -52,5 +56,11 @@ class SmartphoneController extends Controller
     }
     public function index(){
         return view('pages.dokumentasi.smartphone');
+    }
+    public function paginateCollection($items, $perPage = 10, $page = null, $options = [])
+    {
+        $page = $page ?: (\Illuminate\Pagination\Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof \Illuminate\Support\Collection ? $items : \Illuminate\Support\Collection::make($items);
+        return new \Illuminate\Pagination\LengthAwarePaginator(array_values($items->forPage($page, $perPage)->toArray()), $items->count(), $perPage, $page, $options);
     }
 }

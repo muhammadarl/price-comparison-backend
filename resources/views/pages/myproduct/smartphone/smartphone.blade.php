@@ -23,8 +23,11 @@ semua product yang termasuk kedalam kategori smartphone
             <tr>
                 <th scope="col">No</th>
                 <th scope="col">Product Name</th>
-                <th scope="col">Smartphone</th>
+                <th scope="col">Model</th>
+                <th scope="col">Brand</th>
                 <th scope="col">Storage</th>
+                <th scope="col">Memory</th>
+                <th scope="col">Color</th>
                 <th scope="col">E-Commerce Name</th>
                 <th scope="col">Link Product</th>
                 <th scope="col">Harga Product</th>
@@ -39,8 +42,11 @@ semua product yang termasuk kedalam kategori smartphone
             <tr>
                 <td>{{$i++}}</td>
                 <td>{{$product->product_name}}</td>
-                <td>{{$product->smartphone_name}}</td>
+                <td>{{$product->model}}</td>
+                <td>{{$product->brand}}</td>
                 <td>{{$product->storage}}</td>
+                <td>{{$product->memory}}</td>
+                <td>{{$product->color}}</td>
                 <td>{{$product->ecommerce_name}}</td>
                 <td>{{$product->link_product}}</td>
                 <td>Rp.{{$product->harga_product}}</td>
@@ -55,7 +61,7 @@ semua product yang termasuk kedalam kategori smartphone
             </tr>
             @empty
             <tr>
-                <td colspan="6">Empty</td>
+                <td colspan="10">Empty</td>
             </tr>
             @endforelse
         </tbody>
