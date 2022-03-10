@@ -32,7 +32,7 @@ class smartphoneController extends Controller
         $data = [
             'smartphones'=> smartphone::all(),
             'ecommerces'=> ecommerce::all(),
-            "products" => product::find($id)->select("products.id", "products.product_name", "products.id_smartphone", "s1.product_name as smartphone_name","products.ecommerce_id","e1.name as ecommerce_name", "harga_product", 'link_product')->leftjoin('ecommerces as e1','e1.id','=','products.ecommerce_id')
+            "products" => product::find($id)->select("products.id", "products.product_name", "products.id_smartphone", "s1.model as model", "s1.brand as brand",'s1.memory as memory','s1.storage as storage','s1.color as color',"products.ecommerce_id","e1.name as ecommerce_name", "harga_product", 'link_product')->leftjoin('ecommerces as e1','e1.id','=','products.ecommerce_id')
             ->leftjoin('smartphones as s1','s1.id','=','products.id_smartphone')
             ->first()
         ];
@@ -48,6 +48,12 @@ class smartphoneController extends Controller
             'link_product' => ['required'],
             'harga_product' => ['required','numeric'],
         ]);
+        $smartphone = smartphone::find($validate['id_smartphone']);
+        $harga_smartphone = $smartphone->original_price;
+        $selisih = $harga_smartphone - $validate['harga_product'];
+        if($selisih > 1000000){
+            return back()->with('error','masukan harga product sesuai dengan harga product');
+        }
         if($validate['ecommerce_id'] == 1){
             if(!Str::contains($validate['link_product'], 'bukalapak')){
                 return back()->with('error','masukan link product sesuai dengan ecommerce yang tersedia');
@@ -75,6 +81,12 @@ class smartphoneController extends Controller
             'link_product' => [],
             'harga_product' => ['numeric'],
         ]);
+        $smartphone = smartphone::find($validate['id_smartphone']);
+        $harga_smartphone = $smartphone->original_price;
+        $selisih = $harga_smartphone - $validate['harga_product'];
+        if($selisih > 1000000){
+            return back()->with('error','masukan harga product sesuai dengan harga product');
+        }
         if($validate['ecommerce_id'] == 1){
             if(!Str::contains($validate['link_product'], 'bukalapak')){
                 return back()->with('error','masukan link product sesuai dengan ecommerce yang tersedia');

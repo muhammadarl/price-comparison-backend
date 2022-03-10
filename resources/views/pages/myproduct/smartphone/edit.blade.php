@@ -12,6 +12,9 @@ Edit data product di kategori smartphone
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
+<div class="back-page fw-bold capitalize fs-6">
+    <a href="{{url('/my-product/smartphone')}}" style="text-decoration:none"><i class="bi bi-arrow-left"></i> back</a>
+</div>
 <form action="/my-product/smartphone/edit/{{$products->id}}" method="post">
     @method('put')
     @csrf
@@ -25,10 +28,10 @@ Edit data product di kategori smartphone
         <label for="">Smartphone Product</label>
         <select class="form-select @error('id_smartphone') is-invalid @enderror" name="id_smartphone"
             aria-label="Select Smartphone Product">
-            <option value="{{$products->id_smartphone}}">{{$products->smartphone_name}}</option>
+            <option value="{{$products['id_smartphone']}}">{{$products['model']." ".$products['brand']." ".$products['memory']."GB / ".$products['storage']."GB"." ".$products['color']}}</option>
             @foreach($smartphones as $smartphone)
-            @continue($smartphone['id'] == $products->id_smartphone)
-            <option value="{{$smartphone['id']}}">{{$smartphone['product_name']}}</option>
+            @continue($smartphone['id'] == $products['id_smartphone'])
+            <option value="{{$smartphone['id']}}">{{$smartphone['model']." ".$smartphone['brand']." ".$smartphone['memory']."GB / ".$smartphone['storage']."GB"." ".$smartphone['color']}}</option>
             @endforeach
         </select>
         <div id="smartphone-product-help" class="form-text">Pilih smartphone product yang tersedia pada pilihan diatas

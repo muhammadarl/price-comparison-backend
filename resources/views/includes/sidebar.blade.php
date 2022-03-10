@@ -23,24 +23,6 @@
                     Smartphone
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('miTv')}}">
-                    <span data-feather="shopping-cart"></span>
-                    Mi Tv
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('mipowerbank')}}">
-                    <span data-feather="users"></span>
-                    Mi Powerbank
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('smarthome')}}">
-                    <span data-feather="bar-chart-2"></span>
-                    Smart Home
-                </a>
-            </li>
             @endif
             @if(auth()->user()->roles == 'developer')
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">

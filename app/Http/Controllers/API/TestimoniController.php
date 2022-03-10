@@ -9,8 +9,8 @@ use App\Models\testimoni;
 class TestimoniController extends Controller
 {
     public function add_testimoni(Request $request){
-        // $nama = $request->input('guest_name');
-        // $testimoni = $request->input('testimoni');
+        $nama = $request->input('guest_name');
+        $testimoni = $request->input('testimoni');
         $request->validate([
             'guest_name'=>'required',
             'testimoni'=>'required'
@@ -19,8 +19,7 @@ class TestimoniController extends Controller
         return ResponseFormatter::success($testimoni);
     }
     public function all(Request $request){
-        $limit = $request->input('limit',10);
-        $testimoni = testimoni::paginate($limit);
+        $testimoni = testimoni::paginate(5);
         if($testimoni)
         {
             return ResponseFormatter::success($testimoni, 'Data Testimoni Berhasil Diambil');

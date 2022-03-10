@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @if(auth()->user()->roles == 'developer')
 @section('title')
-SYNC CLUSTERING
+Find Ur Smartphone
 @endsection
 @section('subtitle')
 @endsection
@@ -36,6 +36,57 @@ memantau apa yang terjadi
             <h4 class="card-text text-center">{{$jumlah_product}}</h4>
         </div>
     </div>
+</div>
+<h2 class="my-2">Recent Product</h2>
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Model</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Storage</th>
+                <th scope="col">Memory</th>
+                <th scope="col">Color</th>
+                <th scope="col">E-Commerce Name</th>
+                <th scope="col">Link Product</th>
+                <th scope="col">Harga Product</th>
+                <th scope="col" class="text-center"><i class="bi bi-gear"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+            @php
+            $i = 1
+            @endphp
+            @forelse($products as $product)
+            <tr>
+                <td>{{$i++}}</td>
+                <td>{{$product->product_name}}</td>
+                <td>{{$product->model}}</td>
+                <td>{{$product->brand}}</td>
+                <td>{{$product->storage}}</td>
+                <td>{{$product->memory}}</td>
+                <td>{{$product->color}}</td>
+                <td>{{$product->ecommerce_name}}</td>
+                <td>{{$product->link_product}}</td>
+                <td>Rp.{{$product->harga_product}}</td>
+                <td class="text-center d-flex justify-content-center">
+                    <a href="/my-product/smartphone/edit/{{$product->id}}" class="me-2 btn btn-warning"><i class="bi bi-pencil"></i></a>
+                    <form action="/my-product/smartphone/delete/{{$product->id}}" method="post">
+                        @method('delete')
+                        @csrf
+                        <button type="submit" class="me-2 btn btn-danger"><i class="bi bi-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+            @empty
+            <tr>
+                <td colspan="10">Empty</td>
+            </tr>
+            @endforelse
+        </tbody>
+    </table>
 </div>
 @endif
 @if(auth()->user()->roles == 'developer')

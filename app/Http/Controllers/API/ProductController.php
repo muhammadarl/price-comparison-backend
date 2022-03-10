@@ -21,11 +21,8 @@ class ProductController extends Controller
     public function all(Request $request){
         $limit = $request->input('limit', 6);
         $id_smartphone = $request->input('id_smartphone');
-        $product_name = $request->input('product_name');
-        $price_from = $request->input('price_from');
-        $price_to = $request->input('price_to');
-
         $product = product::select('*');
+        $product->leftjoin('partner_profiles as pp', 'pp.username', '=', 'products.username');
         if($id_smartphone){
             $product->where('id_smartphone', $id_smartphone);
             return ResponseFormatter::success(

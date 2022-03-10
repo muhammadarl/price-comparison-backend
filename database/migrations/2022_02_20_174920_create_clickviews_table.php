@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductsTable extends Migration
+class CreateClickviewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('clickviews', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_smartphone');
-            $table->String('product_name',100);
-            $table->String('username',25);
-            $table->bigInteger('ecommerce_id');
-            $table->integer('harga_product');
-            $table->String('link_product');
+            $table->integer('smartphone_id');
+            $table->integer('click');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('clickviews');
     }
 }

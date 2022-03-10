@@ -16,13 +16,14 @@ class CreateSmartphonesTable extends Migration
         Schema::create('smartphones', function (Blueprint $table) {
             $table->id();
             $table->string('image_url');
-            $table->string('product_name',58);
-            $table->string('storage_detail',58);
-            $table->string('screen_size',44);
-            $table->string('camera_detail',112);
-            $table->string('battery_detail',98);
-            $table->string('processor',219);
-            $table->bigInteger('price');
+            $table->string('brand',20);
+            $table->string('model',20);
+            $table->string('color',100);
+            $table->bigInteger('memory');
+            $table->bigInteger('storage');
+            $table->double('rating');
+            $table->bigInteger('selling_price');
+            $table->bigInteger('original_price');
             $table->timestamps();
         });
     }

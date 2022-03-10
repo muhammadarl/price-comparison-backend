@@ -18,9 +18,10 @@ use App\Http\Controllers\API\{SmartphoneController, PartnerController, productCo
 Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('testimoni',[TestimoniController::class, 'all']);
     Route::post('testimoni',[TestimoniController::class, 'add_testimoni']);
+    Route::get('products',[ProductController::class, 'all']);
+    Route::get('products/{id}',[ProductController::class, 'ById']);
+    Route::get('smartphones',[SmartphoneController::class, 'all']);
+    Route::get('smartphones/trending/',[SmartphoneController::class, 'trending']);
+    Route::get('smartphones/recommendation/',[SmartphoneController::class, 'recommendation']);
+    Route::post('rating/{partner_name}',[PartnerController::class, 'add_rating']);
 });
-Route::get('products',[ProductController::class, 'all']);
-Route::get('products/{id}',[ProductController::class, 'ById']);
-Route::get('smartphones',[SmartphoneController::class, 'all']);
-Route::get('smartphones/{id}',[SmartphoneController::class, 'byid']);
-Route::post('rating/{partner_name}',[PartnerController::class, 'add_rating']);

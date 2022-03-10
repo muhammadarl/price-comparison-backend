@@ -11,10 +11,12 @@ use App\Models\product;
 class dashboardController extends Controller
 {
     public function index(){
+        $product = new product();
         $data = [
             'token_api'=> developer::where('username', Auth::user()->username)->first(),
             'partner_profile'=> partner_profile::where('username', Auth::user()->username)->first(),
             'jumlah_product' => product::where('username', Auth::user()->username)->count(),
+            "products" => $product->RecentProduct(Auth::user()->username),
         ];
         // dd($data);
         return view('pages.dashboard', $data);
