@@ -24,6 +24,7 @@ class CreateSmartphonesTable extends Migration
             $table->double('rating');
             $table->bigInteger('selling_price');
             $table->bigInteger('original_price');
+            $table->integer('click_view');
             $table->timestamps();
         });
     }
